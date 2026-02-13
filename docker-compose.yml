@@ -1,5 +1,6 @@
 services:
   backend:
+    image: portfolio-backend
     build: ./server
     ports:
       - "5001:5001"
@@ -11,9 +12,12 @@ services:
     restart: always
 
   frontend:
+    image: portfolio-frontend
+    user: "0:0"
+    entrypoint: ["nginx", "-g", "daemon off;"]
     build: ./client
     ports:
-      - "80:80"
+      - "8080:8080"
     depends_on:
       - backend
     restart: always

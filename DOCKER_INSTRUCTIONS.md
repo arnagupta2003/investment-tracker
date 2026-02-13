@@ -1,32 +1,34 @@
-# How to Run with Docker
+# How to Run with Docker/Podman
 
 ## Prerequisites
-- Docker and Docker Compose installed on your machine.
+- Docker or Podman installed.
+- Docker Compose or Podman Compose installed.
 
-## Steps
+## Setup in this Environment
+I have pre-installed `podman-docker` and `podman-compose` for you.
 
-1.  **Build and Start Containers**
-    Run the following command in the root directory:
+## Quick Start
+1.  **Start the Application**:
+    Run the helper script:
     ```bash
-    docker compose up --build
+    ./start_app.sh
+    ```
+    Or manually:
+    ```bash
+    podman-compose up --build -d
     ```
 
-2.  **Access the Application**
-    - **Frontend:** Open [http://localhost](http://localhost) (or just `http://localhost:80`)
-    - **Backend:** Accessible internally at `http://backend:5001`. The frontend proxies configuration means you don't need to access the backend directly, but it's mapped to `localhost:5001` as well.
+2.  **Access the Application**:
+    - **Frontend**: [http://localhost:8080](http://localhost:8080)
+    - **Backend**: [http://localhost:5001](http://localhost:5001)
 
-3.  **Data Persistence**
-    - The SQLite database is persisted in a Docker volume named `data_volume`.
-    - If you want to view the database file, you can inspect the volume or mount a local directory in `docker-compose.yml`.
-
-4.  **Stopping the Application**
-    Press `Ctrl+C` or run:
+3.  **Stop the Application**:
     ```bash
-    docker compose down
+    podman-compose down
     ```
 
-## Project Structure for Docker
-- `server/Dockerfile`: Node.js backend setup.
-- `client/Dockerfile`: Multi-stage build (Node.js build -> Nginx serve).
-- `client/nginx.conf`: Nginx configuration for serving React and proxying API calls.
-- `docker-compose.yml`: Orchestration for both services.
+## Notes
+- **Rootless Podman**: The setup is configured for rootless Podman (standard on this system).
+- **Ports**: Frontend runs on port `8080` (unprivileged) instead of `80`.
+- **Database**: Persisted in `data_volume`.
+- **Troubleshooting**: If you see permission errors, ensure you are running `podman-compose` and not `docker-compose` if the Docker socket is not configured.
