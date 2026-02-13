@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./server
+    ports:
+      - "5001:5001"
+    environment:
+      - PORT=5001
+      - DB_PATH=/data/portfolio.db
+    volumes:
+      - data_volume:/data
+    restart: always
+
+  frontend:
+    build: ./client
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  data_volume:

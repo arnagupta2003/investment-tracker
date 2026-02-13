@@ -1,0 +1,1 @@
+{"id":1,"asset_type":"Mutual Funds","amount":10000,"date":"2023-01-01"}{"id":2,"asset_type":"Mutual Funds","amount":12000,"date":"2024-01-01"}[{"id":1,"asset_type":"Mutual Funds","amount":10000,"date":"2023-01-01"},{"id":2,"asset_type":"Mutual Funds","amount":12000,"date":"2024-01-01"}]{"totalValue":12000,"absoluteReturn":20,"xirr":20}
