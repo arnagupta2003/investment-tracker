@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, IndianRupee, PieChart, TrendingUp } from 'lucide-react';
-import axios from 'axios';
+import api from '../api'
 import clsx from 'clsx';
 
 const ASSET_TYPES = ['FD', 'Mutual Funds', 'Stocks', 'Gold', 'Real Estate', 'Crypto'];
@@ -17,7 +17,7 @@ export default function InvestmentForm({ onUpdate }) {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/investments`, formData);
+      await api.post('/api/investments', formData);
       setFormData({ ...formData, amount: '' }); // Reset amount only
       onUpdate();
     } catch (err) {

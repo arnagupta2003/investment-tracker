@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api'
 import { Activity, ArrowUpRight, Percent, IndianRupee } from 'lucide-react';
 import PortfolioChart from './PortfolioChart';
 import InvestmentForm from './InvestmentForm';
@@ -12,13 +12,15 @@ export default function Dashboard() {
   const fetchData = async () => {
     try {
       const [invRes, metricRes] = await Promise.all([
-        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/investments`),
-        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/metrics`)
+        api.get("/api/investments"),
+        api.get("/api/metrics")
       ]);
+
       setInvestments(invRes.data);
       setMetrics(metricRes.data);
+
     } catch (err) {
-      console.error('Error fetching data:', err);
+      console.error("Error fetching data:", err.response?.data || err.message);
     }
   };
 
